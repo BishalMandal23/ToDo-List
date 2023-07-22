@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Todo List</title>
+    <link rel="stylesheet" href="./app.css" />
+  </head>
+  <body>
+    <div class="app-container" id="taskList">
+      <h1 class="app-header">TO DO LIST</h1>
+      <div class="add-task">
+        <input
+          type="text"
+          autocomplete="off"
+          placeholder="Add New Task"
+          class="task-input"
+        />
+        <input type="submit" value="" class="submit-task" title="Add Task" />
+      </div>
+      <ul class="task-list">
+        <li class="task-list-item" v-for="task in tasks">
+          <label class="task-list-item-label">
+            <input type="checkbox" />
+            <span>Task name</span>
+          </label>
+          <span class="delete-btn" title="Delete Task"></span>
+        </li>
+      </ul>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
