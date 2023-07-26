@@ -15,11 +15,18 @@
           autocomplete="off"
           placeholder="Add New Task"
           class="task-input"
+          id="taskInput"
         />
-        <input type="submit" value="" class="submit-task" title="Add Task" />
+        <input 
+          type="submit" 
+          value="" 
+          class="submit-task" 
+          title="Add Task" 
+          id="addTaskButton"
+          />
       </div>
-      <ul class="task-list">
-        <li class="task-list-item" v-for="task in tasks">
+      <ul class="task-list" id="taskListItems">
+        <li class="task-list-item" >
           <label class="task-list-item-label">
             <input type="checkbox" />
             <span>Task name</span>
@@ -29,5 +36,56 @@
       </ul>
     </div>
     <script src="./app.js"></script>
+    <script>
+      let tasks = [];
+
+      function addTask(name) {
+      const newTask = {
+        id: Date.now(),
+        name: name,
+        completed: false
+      };
+      tasks.push(newTask);
+    }
+
+const addTaskButton = document.getElementById('addTaskButton');
+if (addTaskButton) {
+  addTaskButton.addEventListener('click', () => {
+    const taskInput = document.getElementById('taskInput');
+    if (!taskInput) {
+      return;
+    }
+    const taskName = taskInput.value.trim();
+
+    if (taskName !== '') {
+      addTask(taskName);
+      taskInput.value = '';
+      renderTasks();
+    }
+  });
+}
+      function renderTasks() {
+        const taskList = document.getElementById('taskListItems');
+        if (!taskList) {
+          return; 
+        }
+
+        taskList.innerHTML = '';
+
+        tasks.forEach(task => {
+          const listItem = document.createElement('li');
+          listItem.className = 'task-list-item';
+
+               const taskName = document.createElement('span');
+          taskName.textContent = task.name;
+
+          listItem.appendChild(taskName);
+
+          taskList.appendChild(listItem); 
+        });
+      }
+
+    </script>
+   
   </body>
 </html>
