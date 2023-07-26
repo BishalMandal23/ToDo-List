@@ -29,10 +29,18 @@ function renderTasks() {
     const taskName = document.createElement('span')
     taskName.textContent = task.name
 
+    const deleteButton = document.createElement('span');
+    deleteButton.className = 'delete-btn';
+    deleteButton.title = 'Delete Task';
+    deleteButton.addEventListener('click', () => {
+        tasks = tasks.filter(t => t.id !== task.id);
+        renderTasks();
+      });
+
     listItem.appendChild(label)
     label.appendChild(checkbox)
     label.appendChild(taskName)
-
+    listItem.appendChild(deleteButton);
     taskList.appendChild(listItem)
   })
 }
