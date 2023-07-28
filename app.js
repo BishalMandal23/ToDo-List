@@ -1,5 +1,9 @@
 let tasks = []
 
+if (localStorage.getItem("tasks")) {
+  tasks = JSON.parse(localStorage.getItem("tasks"));
+}
+
 function addTask(name) {
   const newTask = {
     id: Date.now(),
@@ -7,6 +11,9 @@ function addTask(name) {
     completed: false
   }
   tasks.push(newTask)
+
+  saveTasksToLocalStorage();
+  renderTasks();
 }
 
 function renderTasks() {
@@ -34,6 +41,7 @@ function renderTasks() {
     deleteButton.title = 'Delete Task';
     deleteButton.addEventListener('click', () => {
         tasks = tasks.filter(t => t.id !== task.id);
+        saveTasksToLocalStorage();
         renderTasks();
       });
 
@@ -43,6 +51,10 @@ function renderTasks() {
     listItem.appendChild(deleteButton);
     taskList.appendChild(listItem)
   })
+}
+
+function saveTasksToLocalStorage() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 const addTaskButton = document.getElementById('addTaskButton')
@@ -59,5 +71,9 @@ if (addTaskButton) {
       taskInput.value = ''
       renderTasks()
     }
+    function saveNotesToLocalStorage() {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
   })
 }
+renderTasks();
